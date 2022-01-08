@@ -1,7 +1,7 @@
 var path,boy,cash,diamonds,jewelry,sword;
-var pathImg,boyImg,cashImg,diamondsImg,jewelryImg,swordImg, iphoneImg;
+var pathImg,boyImg,cashImg,diamondsImg,jewelryImg,swordImg, iphoneImg, bombImg;
 var treasureCollection = 0;
-var cashG,diamondsG,jewelryG,swordGroup, iphoneG;
+var cashG,diamondsG,jewelryG,swordGroup, iphoneG, bombG;
 
 //Estados do Jogo
 var PLAY=1;
@@ -17,6 +17,7 @@ function preload(){
   swordImg = loadImage("sword.png");
   endImg =loadAnimation("fimdeJogo.png");
   iphoneImg = loadImage("iphone.jpg");
+  bombImg = loadImage("bomb.png");
 }
 
 function setup(){
@@ -39,6 +40,7 @@ diamondsG=new Group();
 jewelryG=new Group();
 swordGroup=new Group();
 iphoneG = new Group();
+bombG = new Group();
 }
 
 function draw() {
@@ -60,6 +62,7 @@ function draw() {
     createjewelry();
     createSword();
     createIphone();
+    createBomb();
 
     if (cashG.isTouching(boy)) {
       cashG.destroyEach();
@@ -76,7 +79,7 @@ function draw() {
         iphoneG.destroyEach();
         treasureCollection= treasureCollection + 200;
     }else{
-      if(swordGroup.isTouching(boy)) {
+      if(swordGroup.isTouching(boy)||bombG.isTouching(boy)) {
         gameState=END;
         
         boy.addAnimation("SahilRunning",endImg);
@@ -88,12 +91,16 @@ function draw() {
         diamondsG.destroyEach();
         jewelryG.destroyEach();
         swordGroup.destroyEach();
+        bombG.destroyEach();
+        iphoneG.destroyEach();
         
         cashG.setVelocityYEach(0);
         diamondsG.setVelocityYEach(0);
         jewelryG.setVelocityYEach(0);
         swordGroup.setVelocityYEach(0);
-     
+        bombG.setVelocityYEach(0);
+        iphoneG.setVelocityYEach(0);
+
     }
   }
   
@@ -156,5 +163,15 @@ function createIphone(){
   iphone.velocityY = 3;
   iphone.lifetime = 150;
   iphoneG.add(iphone);
+  }
+}
+function createBomb(){
+  if (World.frameCount % 250 == 0) {
+  var bomb = createSprite(Math.round(random(50, 350),40, 10, 10));
+  bomb.addImage(bombImg);
+  bomb.scale=0.1;
+  bomb.velocityY = 3;
+  bomb.lifetime = 150;
+  bombG.add(bomb);
   }
 }
