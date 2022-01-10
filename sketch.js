@@ -26,7 +26,6 @@ function setup(){
 // Movendo fundo
 path=createSprite(200,200);
 path.addImage(pathImg);
-path.velocityY = 4;
 
 
 //criando menino correndo
@@ -41,20 +40,23 @@ jewelryG=new Group();
 swordGroup=new Group();
 iphoneG = new Group();
 bombG = new Group();
-  
+
 edges= createEdgeSprites();
 }
 
 function draw() {
   background(0);
-  if(gameState===PLAY){
-  boy.x = World.mouseX;
-  boy.collide(edges);
   
   //código para reiniciar o fundo
   if(path.y > 400 ){
     path.y = height/2;
   }
+
+  if(gameState===PLAY){
+  boy.x = World.mouseX;
+  path.velocityY = 4;
+  boy.collide(edges);
+  
   
     createCash();
     createDiamonds();
@@ -107,6 +109,9 @@ function draw() {
   textSize(25);
   fill('gold');
   text("Tesouro: "+ treasureCollection,10,30);
+  }
+  if(gameState==END){
+    path.velocityY = 0;
   }
 
 }
