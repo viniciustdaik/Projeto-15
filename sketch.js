@@ -41,14 +41,14 @@ jewelryG=new Group();
 swordGroup=new Group();
 iphoneG = new Group();
 bombG = new Group();
+  
+edges= createEdgeSprites();
 }
 
 function draw() {
-background(0);
+  background(0);
   if(gameState===PLAY){
   boy.x = World.mouseX;
-  
-  edges= createEdgeSprites();
   boy.collide(edges);
   
   //código para reiniciar o fundo
