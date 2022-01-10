@@ -44,9 +44,8 @@ bombG = new Group();
 }
 
 function draw() {
-
+background(0);
   if(gameState===PLAY){
-  background(0);
   boy.x = World.mouseX;
   
   edges= createEdgeSprites();
